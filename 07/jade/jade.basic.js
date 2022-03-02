@@ -1,21 +1,17 @@
 var http = require("http");
 var fs = require("fs");
+var jade = require("jade");
 var path = require("path");
-var ejs = require("ejs");
 
 http
   .createServer(function (req, res) {
     fs.readFile(
-      path.resolve(__dirname, "./ejsPage.ejs"),
+      path.resolve(__dirname, "./ JadePage.jade"),
       "utf8",
       function (error, data) {
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end(
-          ejs.render(data, {
-            name: "meno",
-            description: "Hello ejs With Node js",
-          })
-        );
+        var fn = jade.compile(data);
+        res.writeHead(200, { "Content-Tpye": "text/html" });
+        res.end(fn());
       }
     );
   })
